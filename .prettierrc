@@ -1,0 +1,11 @@
+{
+    "tabWidth": 4,
+    "trailingComma": "all",
+    "semi": true,
+    "singleQuote": false,
+    "jsxSingleQuote": false,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "tailwindFunctions": ["classnames"],
+    "printWidth": 100
+}
