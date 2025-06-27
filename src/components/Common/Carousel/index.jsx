@@ -1,5 +1,8 @@
+"use client";
+
 import classNames from "classnames";
 import useEmblaCarousel from "embla-carousel-react";
+import ClassNames from "embla-carousel-class-names";
 import { useEffect } from "react";
 
 import createContext from "@/utils/create-context";
@@ -11,16 +14,29 @@ const Carousel = ({
     slideToShow = 1,
     slideSpacing = "10px",
     onInit,
+    options,
+    ...props
 }) => {
-    const [emblaRef, emblaApi] = useEmblaCarousel({
-        loop: true,
-    });
+    const [emblaRef, emblaApi] = useEmblaCarousel(
+        {
+            loop: true,
+            ...options,
+        },
+        [ClassNames()],
+    );
 
     useEffect(() => {
         if (!emblaApi) return;
 
         onInit?.(emblaApi);
         emblaApi.on("reInit", onInit);
+        emblaApi.on("select", () => {
+            console.log({
+                selectedIndex: emblaApi.slidesInView(),
+                scrollSnapList: emblaApi.scrollSnapList(),
+                emblaApi,
+            });
+        });
 
         return () => emblaApi.off("reInit", onInit);
     }, [emblaApi]);
@@ -33,25 +49,18 @@ const Carousel = ({
             }}
             className="relative w-full"
         >
-            <CarouselProvider
-                value={{ emblaRef, emblaApi }}
-            >
-                {children}
-            </CarouselProvider>
+            <CarouselProvider value={{ emblaRef, emblaApi }}>{children}</CarouselProvider>
         </div>
     );
 };
 
-const ViewPort = ({ children, className, ...props }) => {
+export const CarouselViewPort = ({ children, className, ...props }) => {
     const { emblaRef } = useContext();
 
     return (
         <div
             ref={emblaRef}
-            className={classNames(
-                "h-full w-full overflow-hidden",
-                className,
-            )}
+            className={classNames("h-full w-full overflow-hidden", className)}
             {...props}
         >
             {children}
@@ -59,7 +68,7 @@ const ViewPort = ({ children, className, ...props }) => {
     );
 };
 
-const Container = ({ children, className, ...props }) => {
+export const CarouselContainer = ({ children, className, ...props }) => {
     return (
         <div
             className={classNames(
@@ -73,13 +82,10 @@ const Container = ({ children, className, ...props }) => {
     );
 };
 
-const Slide = ({ children, className, ...props }) => {
+export const CarouselSlide = ({ children, className, ...props }) => {
     return (
         <div
-            className={classNames(
-                "shrink-0 grow-0 basis-[var(--slide-size)]",
-                className,
-            )}
+            className={classNames("shrink-0 grow-0 basis-[var(--slide-size)]", className)}
             {...props}
         >
             {children}
@@ -87,12 +93,7 @@ const Slide = ({ children, className, ...props }) => {
     );
 };
 
-const Button = ({
-    children,
-    direction = "prev",
-    className,
-    ...props
-}) => {
+export const CarouselButton = ({ children, direction = "prev", className, ...props }) => {
     const directionClass = {
         prev: "left-[-15px]",
         next: "right-[-15px]",
@@ -111,10 +112,5 @@ const Button = ({
         </button>
     );
 };
-
-Carousel.ViewPort = ViewPort;
-Carousel.Container = Container;
-Carousel.Slide = Slide;
-Carousel.Button = Button;
 
 export default Carousel;

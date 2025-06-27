@@ -1,5 +1,5 @@
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+// import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { cn } from "@/utils";
 
@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={cn(inter.className, "bg-[#EFEFEF] flex flex-col min-h-screen")}>
-                <Analytics />
+                {/* <Analytics /> */}
                 {children}
             </body>
         </html>
