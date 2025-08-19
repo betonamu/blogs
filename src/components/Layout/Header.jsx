@@ -51,7 +51,7 @@ const Header = () => {
                             </span>
                         </Link>
                     </h1>
-                    <Flex gap={10}>
+                    <Flex gap={20}>
                         {navItems.map((item) => (
                             <NavItem key={item.url} url={item.url} name={item.name} />
                         ))}
