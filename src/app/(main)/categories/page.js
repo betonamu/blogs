@@ -12,7 +12,7 @@ const CategoriesPage = async () => {
     return (
         <Container>
             <Flex className="mt-4 mb-6" justify="start" align="center">
-                <Breadcrumb items={[{ name: "Categories", link: "/categories" }]} />
+                <Breadcrumb items={[{ name: "Categories" }]} />
             </Flex>
             <h1>Categories</h1>
             <Flex className="flex-wrap" gap={10} justify="start">
@@ -20,10 +20,7 @@ const CategoriesPage = async () => {
                     <Flex
                         key={category._id}
                         direction="col"
-                        className="w-[calc(50%-10px)]
-                            xl:w-[calc(25%-10px)]
-                            min-h-[150px] flex-shink-0 shadow-md rounded-md
-                            cursor-pointer"
+                        className="flex-shink-0 min-h-[150px] w-[calc(50%-10px)] cursor-pointer rounded-md shadow-md xl:w-[calc(25%-10px)]"
                     >
                         <Link href={paths.categoryDetail.replace(":slug", category.slug)}>
                             <h2>{category.name}</h2>

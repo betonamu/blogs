@@ -1,5 +1,6 @@
-import { HTTP_CODE } from "@/constants";
 import { NextResponse } from "next/server";
+
+import { HTTP_CODE } from "@/constants";
 
 export const handleBadRequest = (data, message, code = HTTP_CODE.BAD_REQUEST) => {
     return NextResponse.json(
@@ -54,14 +55,25 @@ export const handleFailedResponse = (data, message) => {
 };
 
 export const handleUnAuthorizedResponse = (message, code) => {
-    return NextResponse.json(
+    const response = NextResponse.json(
         {
             success: false,
             message: message || "Unauthorized!",
-            code: HTTP_CODE.UNAUTHORIZED,
+            code: code || HTTP_CODE.UNAUTHORIZED,
         },
         {
             status: 401,
         },
     );
+
+    // setCookie(
+    //     STORAGE_KEYS.TOKEN,
+    //     "",
+    //     {
+    //         maxAge: 0,
+    //     },
+    //     { res: response },
+    // );
+
+    return response;
 };

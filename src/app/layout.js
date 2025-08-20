@@ -1,9 +1,20 @@
-import { Inter } from "next/font/google";
-// import { Analytics } from "@vercel/analytics/next";
-import "./globals.css";
-import { cn } from "@/utils";
+import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Analytics } from "@vercel/analytics/next";
 
-const inter = Inter({ subsets: ["latin"] });
+import { GOOGLE_CLIENT_ID } from "@/constants";
+
+import "./globals.css";
+
+const geistSans = Geist({
+    variable: "--font-geist-sans",
+    subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+    variable: "--font-geist-mono",
+    subsets: ["latin"],
+});
 
 export const metadata = {
     title: "Create Next App",
@@ -13,9 +24,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <body className={cn(inter.className, "bg-[#EFEFEF] flex flex-col min-h-screen")}>
+            <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
                 {/* <Analytics /> */}
-                {children}
+                <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>{children}</GoogleOAuthProvider>
             </body>
         </html>
     );

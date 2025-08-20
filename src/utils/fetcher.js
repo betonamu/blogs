@@ -1,8 +1,10 @@
 import qs from "qs";
 
-import { getCookie } from "./cookie";
 import { STORAGE_KEYS } from "@/constants";
+import { HEADERS, JSON_CONTENT_TYPE } from "@/constants/apiConfig";
 import { authStore } from "@/store/auth";
+import { generatePath } from "@/utils";
+import { getCookie } from "@/utils/cookie";
 
 const fetcher = async (apiConfig, { data, params, pathParams = {} } = {}) => {
     const { logout } = authStore.getState();
@@ -17,11 +19,10 @@ const fetcher = async (apiConfig, { data, params, pathParams = {} } = {}) => {
         };
     }
 
-    if (pathParams) {
-        Object.keys(pathParams).forEach((key) => {
-            fullPath = fullPath.replace(`/:${key}`, `/${pathParams[key]}`);
-        });
-    }
+    // Replace path parameters in the URL
+    fullPath = generatePath(fullPath, pathParams);
+    console.log({fullPath, pathParams});
+    
 
     if (apiConfig.method === "GET") {
         if (params) {
@@ -40,7 +41,12 @@ const fetcher = async (apiConfig, { data, params, pathParams = {} } = {}) => {
         logout();
     }
 
-    return await res.json();
+    const contentType = res.headers.get("content-type");
+    if (contentType?.includes(JSON_CONTENT_TYPE)) {
+        return await res.json();
+    }
+
+    return res;
 };
 
 export default fetcher;

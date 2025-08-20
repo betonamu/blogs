@@ -1,5 +1,7 @@
 export const ssrMode = typeof window === "undefined";
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+export const GOOGLE_CLIENT_ID = process.env.NEXT_GOOGLE_OAUTH_CLIENT_ID;
+export const GOOGLE_CLIENT_SECRET = process.env.NEXT_GOOGLE_OAUTH_CLIENT_SECRET;
 
 export const AUTHENTICATE = {
     REQUIRED: "REQUIRE", // must be logged in to access the route
@@ -20,4 +22,4 @@ export const HTTP_CODE = {
     UNAUTHORIZED: "UNAUTHORIZED",
     BAD_REQUEST: "BAD_REQUEST",
     NOT_FOUND: "NOT_FOUND",
-}
+};

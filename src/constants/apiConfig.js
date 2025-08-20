@@ -1,11 +1,25 @@
 import { API_URL } from ".";
 
-const baseHeader = {
-    "Content-Type": "application/json",
+export const METHOD = {
+    GET: "GET",
+    POST: "POST",
+    DELETE: "DELETE",
+    PUT: "PUT",
+    PATCH: "PATCH",
 };
 
-const multipartFormHeader = {
-    "Content-Type": "multipart/form-data",
+export const JSON_CONTENT_TYPE = "application/json";
+
+export const HEADERS = {
+    JSON: {
+        "Content-Type": JSON_CONTENT_TYPE,
+    },
+    MULTIPART: {
+        "Content-Type": "multipart/form-data",
+    },
+    FORM_URLENCODED: {
+        "Content-Type": "application/x-www-form-urlencoded",
+    },
 };
 
 export const apiConfig = {
@@ -13,36 +27,41 @@ export const apiConfig = {
         login: {
             url: `${API_URL}/api/auth/login`,
             method: "POST",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
+        },
+        google: {
+            url: `${API_URL}/api/auth/google`,
+            method: "POST",
+            headers: HEADERS.JSON,
         },
         register: {
             url: `${API_URL}/api/auth/register`,
             method: "POST",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
         logout: {
             url: `${API_URL}/api/auth/logout`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
     },
     account: {
         getProfile: {
             url: `${API_URL}/api/account`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
     },
     products: {
         getList: {
             url: `${API_URL}/api/products`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
         getDetail: {
             url: `${API_URL}/api/products/:id`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
     },
 
@@ -50,12 +69,12 @@ export const apiConfig = {
         getList: {
             url: `${API_URL}/api/categories`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
         getBySlug: {
             url: `${API_URL}/api/categories/:slug`,
             method: "GET",
-            headers: baseHeader,
+            headers: HEADERS.JSON,
         },
     },
 };

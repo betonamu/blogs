@@ -1,6 +1,7 @@
+import { Suspense } from "react";
+
 import Home from "@/components/Page/Home";
 import { getProducts } from "@/services/product";
-import { Suspense } from "react";
 
 const HomePage = async ({ params, searchParams }) => {
     const query = await searchParams;

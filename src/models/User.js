@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema(
         },
         password: {
             type: String,
-            required: true,
+            default: null,
         },
         role: {
             type: String,
@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema(
         avatar: {
             type: String,
             default: "",
+        },
+        provider: {
+            type: String,
+            enum: ["local", "google"],
+            default: "local",
         },
     },
     { timestamps: true, collection: "users" },

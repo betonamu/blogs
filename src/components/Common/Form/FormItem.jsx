@@ -1,10 +1,13 @@
 import React from "react";
 import { Field } from "rc-field-form";
+
 import { cn } from "@/utils";
 
 const FormItem = ({ name = "", children, className, ...props }) => {
+    console.log({ props });
+
     return (
-        <Field name={name} {...props} validateTrigger={["onBlur", "onChange"]}>
+        <Field name={name} {...props}>
             {(control, meta, form) => {
                 return (
                     <div className={cn("w-full", className)}>

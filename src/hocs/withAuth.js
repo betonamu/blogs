@@ -1,8 +1,8 @@
 import { jwtVerify } from "jose";
 
+import { STORAGE_KEYS } from "@/constants";
 import { handleUnAuthorizedResponse } from "@/utils/api-response";
 import { removeCookie } from "@/utils/cookie";
-import { STORAGE_KEYS } from "@/constants";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
@@ -32,8 +32,8 @@ export function withAuth(handler, roles = []) {
 
         try {
             const { payload } = await jwtVerify(token, secret);
-            if(roles.length && !roles.includes(payload.role)) {
-               return handleUnAuthorizedResponse("Unauthorized");
+            if (roles.length && !roles.includes(payload.role)) {
+                return handleUnAuthorizedResponse("Unauthorized");
             }
             return handler(request, { ...options, payload });
         } catch (e) {

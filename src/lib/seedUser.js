@@ -1,6 +1,7 @@
-import mongoose from "mongoose";
-import User from "../models/User.js";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
+
+import User from "../models/User.js";
 
 const MONGODB_URI = "mongodb://root:Anhquoc2020@localhost:27017/nextjs-mongodb?authSource=admin";
 const seedUser = async () => {

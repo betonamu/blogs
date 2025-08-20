@@ -1,4 +1,5 @@
 import React from "react";
+
 import Flex from "../Common/Flex";
 
 const Footer = () => {

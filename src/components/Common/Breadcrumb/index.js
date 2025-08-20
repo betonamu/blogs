@@ -1,27 +1,36 @@
+import React from "react";
 import Link from "next/link";
 
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/Common/ui/breadcrumb";
 import { paths } from "@/constants/paths";
-import Flex from "../Flex";
 
-const Breadcrumb = ({ items = [] }) => {
+const BreadcrumbContainer = ({ items = [] }) => {
     const routes = [{ name: "Home", link: paths.home }, ...items];
 
     return (
-        <Flex className="breadcrumb" justify="start" gap={5}>
-            {routes.map((item, index) => (
-                <Flex key={index} className="breadcrumb-item items-center gap-1">
-                    {item.link ? (
-                        <Link href={item.link} className="hover:text-black text-gray-600">
-                            {item.name}
-                        </Link>
+        <Breadcrumb>
+            <BreadcrumbList>
+                {routes.map((item, index) =>
+                    item.link ? (
+                        <React.Fragment key={index}>
+                            <BreadcrumbItem>
+                                <Link href={item.link || "#"}>{item.name}</Link>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator />
+                        </React.Fragment>
                     ) : (
-                        <span className="text-gray-900 font-bold">{item.name}</span>
-                    )}
-                    {index !== routes.length - 1 && <span className="text-gray-400 ml-2">•</span>}
-                </Flex>
-            ))}
-        </Flex>
+                        <BreadcrumbPage key={index}>{item.name}</BreadcrumbPage>
+                    ),
+                )}
+            </BreadcrumbList>
+        </Breadcrumb>
     );
 };
 
-export default Breadcrumb;
+export default BreadcrumbContainer;

@@ -4,12 +4,9 @@ import { SignJWT } from "jose";
 
 import connectDb from "@/lib/connectDb";
 import User from "@/models/User";
-import {
-    handleBadRequest,
-    handleSuccessResponse
-} from "@/utils/api-response";
+import { handleBadRequest, handleSuccessResponse } from "@/utils/api-response";
 
-const schema = {
+const schemas = {
     email: Joi.string().email().required(),
     password: Joi.string().min(6).max(30).required(),
 };
@@ -22,7 +19,7 @@ export async function POST(request) {
 
     try {
         const { email, password } = await request.json();
-        const { error } = Joi.object(schema).validate({ email, password });
+        const { error } = Joi.object(schemas).validate({ email, password });
 
         if (error) {
             return handleBadRequest(error.details[0].message);
@@ -52,7 +49,7 @@ export async function POST(request) {
         const dto = {
             token,
             type: "Bearer",
-            expiredIn: expiresInSeconds.toString(),
+            expiredIn: expiresInSeconds,
         };
 
         return handleSuccessResponse(dto, "Login successfully");

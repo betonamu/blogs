@@ -9,3 +9,12 @@ export const login = async (data) => {
         return { success: false, message: error.message };
     }
 };
+
+export const googleLogin = async (data) => {
+    try {
+        return await fetcher(apiConfig.auth.google, { data });
+    } catch (error) {
+        console.error("Error logging in with Google:", error);
+        return { success: false, message: error.message };
+    }
+};
